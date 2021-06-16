@@ -39,7 +39,7 @@ Logger& getLogger() {
     return *logger;
 }
 
-bool allowFlyMode = false;
+bool allowFlyMode = true;
 
 bool flyModeEnable = false;
 
@@ -126,12 +126,7 @@ MAKE_HOOK_OFFSETLESS(PhotonNetworkController_OnJoinedRoom, void, Il2CppObject* s
 
     Il2CppObject* currentRoom = CRASH_UNLESS(il2cpp_utils::RunMethod("Photon.Pun", "PhotonNetwork", "get_CurrentRoom"));
 
-    if (currentRoom)
-    {
-        // get wether or not this is a private room
-        allowFlyMode = !CRASH_UNLESS(il2cpp_utils::RunMethod<bool>(currentRoom, "get_IsVisible"));
-    }
-    else allowFlyMode = true;
+    allowFlyMode = true
 
     // ? construction to switch what is logged, logs work like printf in C with the % placeholders
     getLogger().info("Room Joined! %s", allowFlyMode ? "Room Was Private" : "Room Was not private");
